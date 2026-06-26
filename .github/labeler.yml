@@ -1,0 +1,19 @@
+documentation:
+  - changed-files:
+    - any-glob-to-any-file: ['docs/**', '*.md']
+
+tools:
+  - changed-files:
+    - any-glob-to-any-file: ['docs/tools.md']
+
+resources:
+  - changed-files:
+    - any-glob-to-any-file: ['docs/books.md', 'docs/communities.md', 'docs/newsletters.md']
+
+roadmap:
+  - changed-files:
+    - any-glob-to-any-file: ['docs/roadmap.md']
+
+website:
+  - changed-files:
+    - any-glob-to-any-file: ['artifacts/dehub-web/**']

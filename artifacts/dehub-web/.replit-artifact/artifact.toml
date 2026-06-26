@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "DEHUB - Data Engineering Hub"
+version = "1.0.0"
+id = "artifacts/dehub-web"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19337
+
+[services.development]
+run = "pnpm --filter @workspace/dehub-web run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/dehub-web", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/dehub-web/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19337"
+BASE_PATH = "/"
