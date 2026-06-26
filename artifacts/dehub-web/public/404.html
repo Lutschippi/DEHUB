@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DEHUB – Data Engineering Hub</title>
+    <!-- GitHub Pages SPA redirect: copy path into session storage then go to root -->
+    <script>
+      var seg = window.location.pathname.split('/').slice(1).join('/');
+      sessionStorage.setItem('redirect', seg);
+      window.location.replace('/');
+    </script>
+  </head>
+  <body></body>
+</html>
