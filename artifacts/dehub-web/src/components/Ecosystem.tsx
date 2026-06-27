@@ -1,97 +1,73 @@
 import { motion } from 'framer-motion';
-import { Database, Zap, Layers, Server, ShieldCheck } from 'lucide-react';
 
-const categories = [
+const BOOKS = [
   {
-    title: 'Orchestration',
-    icon: Layers,
-    description: 'Schedule and monitor complex distributed workflows reliably.',
-    tools: ['Airflow', 'Dagster', 'Prefect', 'Mage']
+    title: 'Fundamentals of Data Engineering',
+    author: 'Joe Reis & Matt Housley',
+    desc: 'The definitive modern guide to the data engineering lifecycle.',
+    color: '#22c55e',
   },
   {
-    title: 'Storage',
-    icon: Database,
-    description: 'Open table formats for modern data lakehouses.',
-    tools: ['Apache Iceberg', 'Delta Lake', 'Apache Hudi']
+    title: 'The Data Warehouse Toolkit',
+    author: 'Ralph Kimball',
+    desc: 'The bible of dimensional modeling and schema design.',
+    color: '#60a5fa',
   },
   {
-    title: 'Processing',
-    icon: Zap,
-    description: 'Batch and stream massive-scale data transformations.',
-    tools: ['Spark', 'Flink', 'dbt']
+    title: 'Data Pipelines Pocket Reference',
+    author: 'James Densmore',
+    desc: 'Practical patterns for moving and transforming data.',
+    color: '#a78bfa',
   },
   {
-    title: 'Warehouses',
-    icon: Server,
-    description: 'Scalable analytical databases for massive workloads.',
-    tools: ['Snowflake', 'BigQuery', 'Databricks']
+    title: '97 Things Every Data Engineer Should Know',
+    author: 'Tobias Macey',
+    desc: 'Wisdom and best practices from industry practitioners.',
+    color: '#fb923c',
   },
-  {
-    title: 'Quality & Testing',
-    icon: ShieldCheck,
-    description: 'Data validation, profiling, and observability.',
-    tools: ['Great Expectations', 'dbt tests', 'Soda']
-  }
 ];
+
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+};
 
 export function Ecosystem() {
   return (
-    <section id="ecosystem" className="py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold mb-6 tracking-tight"
-          >
-            Modern Data Stack <span className="text-secondary">Ecosystem</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-muted-foreground text-lg leading-relaxed"
-          >
-            Navigate the complex landscape of data engineering tools. We cover the battle-tested industry standards and the next-generation challengers.
-          </motion.p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((cat, i) => {
-            const Icon = cat.icon;
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.4 }}
-                className="group relative p-8 rounded-2xl border border-border bg-card hover:border-primary/50 transition-colors shadow-sm"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-5">
-                    <div className="p-3 rounded-xl bg-background border border-border text-primary group-hover:bg-primary/10 transition-colors">
-                      <Icon size={24} />
-                    </div>
-                    <h3 className="text-xl font-bold tracking-tight">{cat.title}</h3>
-                  </div>
-                  <p className="text-muted-foreground mb-8 text-sm leading-relaxed">{cat.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {cat.tools.map((tool, j) => (
-                      <span key={j} className="px-3 py-1 rounded-md bg-background border border-border text-foreground text-xs font-mono group-hover:border-primary/30 transition-colors">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
+    <section id="books" style={{ padding: '80px 24px', maxWidth: '960px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '14px' }}>
+        <span style={{ fontSize: '11px', fontWeight: 600, color: '#4a7a5a', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'monospace' }}>
+          02 / BOOKS
+        </span>
       </div>
+      <motion.h2 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        style={{ fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 700, color: '#d4ede0', marginBottom: '36px', letterSpacing: '-0.02em' }}>
+        Essential Books
+      </motion.h2>
+
+      <motion.div variants={container} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+        {BOOKS.map((b) => (
+          <motion.div key={b.title} variants={item}
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderRadius: '10px',
+              padding: '20px',
+              transition: 'border-color 0.2s, background 0.2s',
+            }}
+            whileHover={{ background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.12)' }}>
+            <div style={{ width: '28px', height: '4px', background: b.color, borderRadius: '2px', marginBottom: '14px' }} />
+            <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#d4ede0', marginBottom: '6px', lineHeight: 1.4 }}>{b.title}</h3>
+            <p style={{ fontSize: '11px', color: '#4a7a5a', fontFamily: 'monospace', marginBottom: '8px' }}>{b.author}</p>
+            <p style={{ fontSize: '12px', color: '#6e9e82', lineHeight: 1.6 }}>{b.desc}</p>
+          </motion.div>
+        ))}
+      </motion.div>
     </section>
   );
 }

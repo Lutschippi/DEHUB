@@ -1,103 +1,78 @@
 import { motion } from 'framer-motion';
-import { Terminal, Database, Cloud, Network } from 'lucide-react';
 
-const paths = [
+const PATHS = [
   {
-    level: "Beginner",
-    title: "SQL & Python Fundamentals",
-    icon: Terminal,
-    topics: ["Advanced SQL", "Python for Data", "Linux & Git", "Data Modeling Basics"],
-    color: "from-blue-500 to-cyan-400",
-    badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/20"
+    label: 'Beginner Track',
+    desc: 'Master SQL, Python, and Git. Understand databases, basic data modeling, and how to query and transform data. Build your first pipeline.',
+    color: '#22c55e',
+    bg: 'rgba(34,197,94,0.08)',
+    border: 'rgba(34,197,94,0.2)',
+    icon: '▸_',
   },
   {
-    level: "Intermediate",
-    title: "Warehouses & Pipelines",
-    icon: Database,
-    topics: ["dbt & Transformation", "Airflow Orchestration", "Cloud DWs (Snowflake)", "Batch Processing"],
-    color: "from-primary to-green-400",
-    badgeColor: "bg-primary/10 text-primary border-primary/20"
+    label: 'Intermediate Track',
+    desc: 'Dive into distributed computing (Spark), orchestration (Airflow), cloud data warehouses, and the modern data stack with dbt.',
+    color: '#facc15',
+    bg: 'rgba(250,204,21,0.08)',
+    border: 'rgba(250,204,21,0.2)',
+    icon: '▸▸',
   },
   {
-    level: "Advanced",
-    title: "Distributed Systems",
-    icon: Cloud,
-    topics: ["Apache Spark", "Data Lakes (Iceberg)", "Streaming (Kafka/Flink)", "Docker & K8s"],
-    color: "from-purple-500 to-pink-400",
-    badgeColor: "bg-purple-500/10 text-purple-400 border-purple-500/20"
+    label: 'Advanced Self-Study',
+    desc: 'Streaming (Kafka/Flink), data modeling at scale, open table formats (Iceberg/Delta), system design, and building production-grade lakehouses.',
+    color: '#f87171',
+    bg: 'rgba(248,113,113,0.08)',
+    border: 'rgba(248,113,113,0.2)',
+    icon: '▸▸▸',
   },
-  {
-    level: "Expert",
-    title: "Architecture & Scale",
-    icon: Network,
-    topics: ["System Design", "FinOps & Cost Tuning", "Data Mesh / Fabric", "Custom Connectors"],
-    color: "from-orange-500 to-red-400",
-    badgeColor: "bg-orange-500/10 text-orange-400 border-orange-500/20"
-  }
 ];
+
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+};
 
 export function Roadmap() {
   return (
-    <section id="roadmap" className="py-24 relative border-t border-border bg-card/20">
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="mb-20 text-center max-w-3xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold mb-6 tracking-tight"
-          >
-            Engineering <span className="text-primary">Roadmap</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-muted-foreground text-lg leading-relaxed"
-          >
-            Follow a structured learning path from writing your first SELECT statement to designing globally distributed streaming platforms.
-          </motion.p>
-        </div>
-
-        <div className="space-y-12 relative before:absolute before:inset-0 before:ml-[1.25rem] md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
-          {paths.map((path, i) => {
-            const Icon = path.icon;
-            return (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5 }}
-                className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
-              >
-                <div className={`flex items-center justify-center w-10 h-10 rounded-xl border bg-background shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ${path.badgeColor}`}>
-                  <Icon size={20} />
-                </div>
-                
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-8 rounded-2xl border border-border bg-card shadow-sm hover:border-muted-foreground/30 transition-colors relative overflow-hidden">
-                  <div className={`absolute top-0 left-0 w-1 h-full bg-gradient-to-b ${path.color}`}></div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className={`px-2.5 py-1 rounded text-xs font-mono font-bold uppercase tracking-wider border ${path.badgeColor}`}>
-                      Phase {i + 1}: {path.level}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl font-bold mb-6 tracking-tight">{path.title}</h3>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {path.topics.map((topic, j) => (
-                      <li key={j} className="flex items-center text-muted-foreground text-sm bg-background/50 px-3 py-2 rounded-md border border-border/50">
-                        <span className={`w-1.5 h-1.5 rounded-full mr-2 bg-gradient-to-r ${path.color}`}></span>
-                        {topic}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
+    <section id="paths" style={{ padding: '80px 24px', maxWidth: '960px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '14px' }}>
+        <span style={{ fontSize: '11px', fontWeight: 600, color: '#4a7a5a', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'monospace' }}>
+          01 / PATHS
+        </span>
       </div>
+      <motion.h2
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        style={{ fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 700, color: '#d4ede0', marginBottom: '36px', letterSpacing: '-0.02em' }}>
+        Getting Started
+      </motion.h2>
+
+      <motion.div variants={container} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+        {PATHS.map((p) => (
+          <motion.div key={p.label} variants={item}
+            style={{
+              background: p.bg,
+              border: `1px solid ${p.border}`,
+              borderRadius: '10px',
+              padding: '24px',
+              cursor: 'default',
+              transition: 'border-color 0.2s',
+            }}
+            whileHover={{ scale: 1.02 }}>
+            <div style={{ fontFamily: 'monospace', fontSize: '13px', color: p.color, marginBottom: '10px', fontWeight: 600 }}>
+              {p.icon}
+            </div>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#d4ede0', marginBottom: '10px' }}>{p.label}</h3>
+            <p style={{ fontSize: '13px', color: '#6e9e82', lineHeight: 1.65 }}>{p.desc}</p>
+          </motion.div>
+        ))}
+      </motion.div>
     </section>
   );
 }

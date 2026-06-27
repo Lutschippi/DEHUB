@@ -1,73 +1,92 @@
 import { motion } from 'framer-motion';
-import { Star, GitFork, Github } from 'lucide-react';
 
-const projects = [
-  { name: 'apache/spark', desc: 'Unified engine for large-scale data analytics.', stars: '39.2k', forks: '28.1k', lang: 'Scala' },
-  { name: 'apache/airflow', desc: 'Platform to programmatically author, schedule, and monitor workflows.', stars: '35.1k', forks: '13.5k', lang: 'Python' },
-  { name: 'dbt-labs/dbt-core', desc: 'Enable data analysts and engineers to transform their data using SQL.', stars: '8.9k', forks: '2.1k', lang: 'Python' },
-  { name: 'apache/iceberg', desc: 'Open table format for huge analytic datasets.', stars: '5.8k', forks: '2.4k', lang: 'Java' },
+const PROJECTS = [
+  {
+    name: 'Bitcoin Price Analytics',
+    diff: 'Beginner',
+    color: '#22c55e',
+    bg: 'rgba(34,197,94,0.08)',
+    border: 'rgba(34,197,94,0.18)',
+    desc: 'Ingest and visualize live BTC price data. Build a simple pipeline with Python, store in Postgres, and plot trends.',
+  },
+  {
+    name: 'Stock Market Analytics',
+    diff: 'Intermediate',
+    color: '#facc15',
+    bg: 'rgba(250,204,21,0.07)',
+    border: 'rgba(250,204,21,0.18)',
+    desc: 'Pull daily OHLCV data, calculate moving averages with dbt, orchestrate with Airflow, and serve via API.',
+  },
+  {
+    name: 'Airbnb Data Lakehouse',
+    diff: 'Intermediate',
+    color: '#facc15',
+    bg: 'rgba(250,204,21,0.07)',
+    border: 'rgba(250,204,21,0.18)',
+    desc: 'Build a full lakehouse on the NYC Airbnb dataset. Iceberg tables, Spark transforms, and a dbt semantic layer.',
+  },
+  {
+    name: 'YouTube Channel Analytics',
+    diff: 'Advanced',
+    color: '#f87171',
+    bg: 'rgba(248,113,113,0.07)',
+    border: 'rgba(248,113,113,0.18)',
+    desc: 'Stream YouTube API events with Kafka, process with Flink, and build a real-time dashboard.',
+  },
+  {
+    name: 'Twitch Chat Analytics',
+    diff: 'Advanced',
+    color: '#f87171',
+    bg: 'rgba(248,113,113,0.07)',
+    border: 'rgba(248,113,113,0.18)',
+    desc: 'Real-time chat ingestion via Twitch EventSub, sentiment analysis, and per-stream dashboards.',
+  },
 ];
+
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+};
 
 export function Projects() {
   return (
-    <section id="projects" className="py-24 border-y border-border bg-background">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div className="max-w-2xl">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-5xl font-bold mb-6 tracking-tight"
-            >
-              Open Source <span className="text-primary">Showcase</span>
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-muted-foreground text-lg leading-relaxed"
-            >
-              The tools powering the world's data infrastructure are built in the open. Explore, contribute, and learn from the best.
-            </motion.p>
-          </div>
-          <motion.a 
-            href="https://github.com/Lutschippi/DEHUB"
-            target="_blank"
-            rel="noreferrer"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-2 px-5 py-3 rounded-lg bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all font-mono text-sm shadow-sm whitespace-nowrap"
-          >
-            <Github size={18} /> View all on GitHub
-          </motion.a>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((p, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.98, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.4 }}
-              className="p-8 rounded-2xl border border-border bg-card flex flex-col hover:border-muted-foreground/30 transition-colors group cursor-pointer"
-            >
-              <div className="flex justify-between items-start mb-6">
-                <h3 className="text-xl font-bold font-mono text-primary group-hover:underline underline-offset-4 decoration-primary/50">{p.name}</h3>
-                <span className="px-3 py-1 rounded text-xs font-mono bg-background border border-border text-muted-foreground shadow-sm">{p.lang}</span>
-              </div>
-              <p className="text-muted-foreground mb-8 flex-1 leading-relaxed">{p.desc}</p>
-              <div className="flex gap-6 text-sm font-mono text-muted-foreground bg-background/50 px-4 py-3 rounded-lg border border-border/50">
-                <span className="flex items-center gap-2 hover:text-foreground transition-colors"><Star size={16} className="text-yellow-500/80" /> {p.stars}</span>
-                <span className="flex items-center gap-2 hover:text-foreground transition-colors"><GitFork size={16} className="text-blue-500/80" /> {p.forks}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+    <section id="projects" style={{ padding: '80px 24px', maxWidth: '960px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '14px' }}>
+        <span style={{ fontSize: '11px', fontWeight: 600, color: '#4a7a5a', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'monospace' }}>
+          06 / PROJECTS
+        </span>
       </div>
+      <motion.h2 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        style={{ fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 700, color: '#d4ede0', marginBottom: '36px', letterSpacing: '-0.02em' }}>
+        Hands-On Projects
+      </motion.h2>
+
+      <motion.div variants={container} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
+        {PROJECTS.map((p) => (
+          <motion.div key={p.name} variants={item}
+            style={{
+              background: p.bg, border: `1px solid ${p.border}`,
+              borderRadius: '10px', padding: '22px',
+              transition: 'transform 0.15s',
+            }}
+            whileHover={{ scale: 1.02 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#d4ede0', lineHeight: 1.4 }}>{p.name}</h3>
+              <span style={{
+                fontSize: '10px', fontFamily: 'monospace', fontWeight: 700,
+                color: p.color, background: 'rgba(0,0,0,0.2)',
+                padding: '2px 8px', borderRadius: '4px', flexShrink: 0, marginLeft: '8px',
+              }}>{p.diff}</span>
+            </div>
+            <p style={{ fontSize: '12px', color: '#8fad9a', lineHeight: 1.65 }}>{p.desc}</p>
+          </motion.div>
+        ))}
+      </motion.div>
     </section>
   );
 }
