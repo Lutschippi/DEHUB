@@ -244,6 +244,12 @@ $ pip install dehub-knowledge --upgrade
 | [Intermediate Bootcamp](https://learn.dataexpert.io/) | DataExpert.io | Intermediate | 6 weeks |
 | [DE Fundamentals](https://www.databricks.com/resources/learn/training) | Databricks | All Levels | Self-paced |
 
+### Free Practice Repositories
+
+| Resource | Description | Level |
+|----------|-------------|-------|
+| [Fintech Data Engineering Roadmap](https://github.com/antony502189-max/fintech-data-engineering-roadmap) | Python and SQLite exercises for payment replay, reconciliation, historical data, and recovery using synthetic data | Beginner to Intermediate |
+
 ### Premium Courses
 
 | Name | Provider | Level |
